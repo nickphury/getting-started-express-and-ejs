@@ -6,20 +6,27 @@
     <title>Tutorial node with ejs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
+      href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
   </head>
   <body>
-    <div class="container">
-      <h1 class="header">Guitar Inventory</h1>
-      <a class="btn" href="/guitars"
-        ><em class="material-icons right">arrow_forward</em>Get started!</a
-      >
+    <div class="mdc-card mdc-card--outlined">
+      <h1 class="header">Books store</h1>
+      <div class="mdc-card__actions">
+        <button
+          class="mdc-button mdc-button--raised mdc-card__action mdc-card__action--button"
+        >
+          <span class="mdc-button__label">Enter to the store</span>
+          <span class="material-icons"> arrow_forward </span>
+          <div class="mdc-button__ripple"></div>
+        </button>
+      </div>
     </div>
   </body>
 </html>
