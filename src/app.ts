@@ -1,8 +1,12 @@
 import express from 'express';
 import path from 'path';
+import dotenv from 'dotenv';
+import bookRouter from './routes/book.routes';
+// import mongoose, { ConnectOptions } from 'mongoose';
+// import fs from 'fs';
 
 // initialize configuration
-// dotenv.config();
+dotenv.config();
 
 const app = express();
 //
@@ -19,6 +23,19 @@ app.use((req, res, next) => {
   next();
 });
 
+// mongoose
+//   .connect(
+//     `mongodb+srv://gs_user:${process.env.PWD_MONGODB}@gs-node-express-db.dyrti.mongodb.net/books?retryWrites=true&w=majority`,
+//     { useNewUrlParser: true, useUnifiedTopology: true } as ConnectOptions
+//   )
+//   .then(() => console.log('Connexion à MongoDB réussie !'))
+//   .catch((err: any) => {
+//     console.log('Connexion à MongoDB échouée : ');
+//     fs.writeFileSync('./mongodb_connection_logs.json', JSON.stringify(err), {
+//       encoding: 'utf-8',
+//     });
+//   });
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -31,4 +48,14 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/info', (req, res) => {
+  res
+    .send({
+      name: process.env.npm_package_name,
+      version: process.env.npm_package_version,
+    })
+    .status(200);
+});
+
+app.use('/books', bookRouter);
 export default app;
