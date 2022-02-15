@@ -3,6 +3,7 @@ Create **.env** file and add the following content
 SERVER_PORT=3005
 
 MYSQL_PROT=6378 // Not used at the moment
+
 REDIS_PORT=6379
 
 HOST=localhost
@@ -16,6 +17,9 @@ sign up or login to : https://account.mongodb.com/account/login
 
 
 MONGODB_USER = **username**
+
 MONGODB_PWD = **password**
+
 MONGODB_DATABASE = **collection**
+
 TOKEN_SECRET = **'use a too long long random string for the production :) '**
