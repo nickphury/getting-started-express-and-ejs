@@ -5,6 +5,8 @@ import bookRouter from './routes/book.routes';
 import mongoose, { ConnectOptions } from 'mongoose';
 import fs from 'fs';
 import userRouter from './routes/user.routes';
+import { authMiddleware } from './middleware/session-auth';
+import { getSession } from './tools/session';
 
 // initialize configuration
 dotenv.config();
@@ -44,6 +46,9 @@ app.use(express.json());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//
+app.use(getSession);
+
 // define a route handler for the default home page
 app.get('/', (req, res) => {
   res.render('index');
@@ -58,7 +63,7 @@ app.get('/info', (req, res) => {
     .status(200);
 });
 
-app.use('/books', bookRouter);
+app.use('/books', authMiddleware, bookRouter);
 app.use('/user', userRouter);
 
 export default app;

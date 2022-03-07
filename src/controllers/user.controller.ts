@@ -9,11 +9,25 @@ class UserController {
 
   public async login(req: Request, res: Response, next: NextFunction) {
     try {
-      res.send(await new UserService().login(req?.body)).status(200);
+      res
+        .send(await new UserService().login(req?.body, req.session))
+        .status(200);
     } catch (error) {
-      console.warn('object : ', error);
-      res.send({ status: error?.status || 500, message: 'Still Problemos' });
+      res
+        .send({ status: error?.status || 500, message: 'Still Problemos' })
+        .status(500);
     }
+  }
+
+  public async logout(req: Request, res: Response, next: NextFunction) {
+    // TODO
+    req.session.destroy((err) => {
+      if (err) {
+        res.send({ message: 'logout problemo/' }).status(500);
+      } else {
+        res.redirect('/');
+      }
+    });
   }
 }
 

@@ -9,6 +9,4 @@ const bookSchema = new Schema({
   description: String,
 });
 
-// bookSchema.plugin(uniqueValidator);
-
 module.exports = mongoose.model('Book', bookSchema);
