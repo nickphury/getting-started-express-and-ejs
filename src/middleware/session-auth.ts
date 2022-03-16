@@ -11,7 +11,13 @@ export function authMiddleware(
 ) {
   try {
     const token = (req?.headers?.authorization as string)?.split(' ')[1];
+    if (!token) {
+      throw { error: true, message: 'Not authorized' };
+    }
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+    if (!decodedToken) {
+      throw { error: true, message: 'Not authorized' };
+    }
     const userId = (decodedToken as any)?.userId;
     if (req.body.userId && req.body.userId !== userId) {
       throw new Error('Invalid user');
@@ -19,6 +25,6 @@ export function authMiddleware(
       next();
     }
   } catch (error) {
-    res.status(401).json({ message: 'Not authorized' });
+    res.status(401).json({ message: error?.message || 'Problemo' });
   }
 }

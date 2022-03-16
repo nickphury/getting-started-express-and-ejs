@@ -36,18 +36,22 @@ export class UserService {
       session.user = userTmp;
       return {
         id: userTmp._id,
-        token: jwt.sign(
-          {
-            userId: userTmp._id,
-            others:
-              'And others stuff if needed for calling others api for example',
-          },
-          process.env.TOKEN_SECRET,
-          { expiresIn: '1h' }
-        ),
+        token: generateAccessToken(userTmp),
       };
     } catch (error) {
       throw { error, message: 'Internal Problemo' };
     }
   }
+}
+
+function generateAccessToken(user: any) {
+  return jwt.sign(
+    {
+      userId: user._id,
+      email: user.email,
+      others: 'And others stuff if needed for calling others api for example',
+    },
+    process.env.TOKEN_SECRET,
+    { expiresIn: process.env.TOKEN_SECRET_TTL }
+  );
 }
